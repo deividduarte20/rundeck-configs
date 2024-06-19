@@ -9,7 +9,7 @@ GMT-3 - Fuso horário oficial do país
 ## O sexto número é referente a dia da semana
 ## O sétimo número é referente ao ano
 
-### Vamos supor que você deseja executar o job todo dia primeiro do mês as 8h da manhã
+### Vamos supor que você deseja executar o job todo dia primeiro do mês as 8h da manhã, segue exemplo abaixo:
 
 "0 0 8 1 * ? *"
 
