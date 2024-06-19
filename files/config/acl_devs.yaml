@@ -1,0 +1,42 @@
+#### ACL ####
+
+---
+description: 'Allow group runjob to run all jobs'
+for:
+  job:
+  - allow:
+    - runAs
+    - killAs
+    - kill
+    - run
+    - read
+    match:
+      name: '.*'
+  node:
+  - allow:
+    - read
+    - run
+  adhoc:
+  - deny:
+    - read
+    - run
+  resource:
+  - allow: read
+    equals:
+      kind: event
+context:
+  project: '.*'
+by:
+  group: devs
+
+---
+description: 'Allow '
+for:
+  project:
+  - allow: read
+    match:
+      name:  '.*'
+context:
+  application: rundeck
+by:
+  group: devs

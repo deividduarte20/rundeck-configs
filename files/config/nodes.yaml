@@ -1,0 +1,23 @@
+EC2:
+  nodename: EC2
+  hostname: 54.167.3.10
+  osFamily: unix
+  osVersion: 5.11.0-7612-generic
+  osArch: amd64
+  ssh-key-storage-path: keys/projects/ops/rundeck.pem
+  description: Remote SSH server node
+  osName: Linux
+  tags: aws
+  username: ec2-user
+VM:
+  nodename: VM
+  hostname: 192.168.100.151
+  osFamily: unix
+  osVersion: 5.11.0-7612-generic
+  osArch: amd64
+  description: Node VM
+  ssh-password-storage-path: keys/projects/ops/passwd_vm
+  osName: Linux
+  ssh-authentication: password
+  tags: VM
+  username: root
