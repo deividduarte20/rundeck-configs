@@ -77,11 +77,12 @@ sudo sed -i '/dataSource.url/d' /etc/rundeck/rundeck-config.properties
 
 ## Insira as linhas abaixo no final do arquivo /etc/rundeck/rundeck-config.properties
 ### DATABASE
+```
 dataSource.driverClassName = org.mariadb.jdbc.Driver </br>
 dataSource.url = jdbc:mysql://endpoint-db/rundeck? autoReconnect=true&useSSL=false </br>
 dataSource.username = rundeckuser </br>
 dataSource.password = senhadb
-
+```
 
 # Reinicie o serviço
 ```bash
