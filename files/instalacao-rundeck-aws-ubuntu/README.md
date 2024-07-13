@@ -94,3 +94,8 @@ dataSource.password = senhadb
 ```bash
 sudo service rundeckd restart
 ```
+
+# Habilitando o serviço do rundeck para inicializar junto com o sistema
+```bash
+sudo systemctl enable rundeckd
+```
