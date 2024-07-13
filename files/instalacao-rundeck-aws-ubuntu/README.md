@@ -5,7 +5,7 @@
 Equivalente a m4.large na AWS EC2
 ```
 
-## Rundeck
+## Rundeck (Ubuntu)
 
 ## Instale o Java
 ```bash
