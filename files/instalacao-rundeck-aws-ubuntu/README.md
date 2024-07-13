@@ -80,6 +80,8 @@ sudo sed -i '/dataSource.url/d' /etc/rundeck/rundeck-config.properties
 ```
 
 ## Insira as linhas abaixo no final do arquivo /etc/rundeck/rundeck-config.properties
+**Substitua endpoint-db pelo seu endpoint do RDS**
+**Substitura senhadb pela senha do usuário rundeckuser do banco**
 ### DATABASE
 ```
 dataSource.driverClassName = org.mariadb.jdbc.Driver 
