@@ -97,7 +97,7 @@ curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-da
 ## Insira o ip público obtido no comando anterior da sua instância no arquivo de configuração
 **Substitua seu-ip pelo ip obtido no comando anterior**
 ```bash
-sudo sed 's/localhost/seu-ip/' /etc/rundeck/rundeck-config.properties
+sudo sed -i 's/localhost/seu-ip/' /etc/rundeck/rundeck-config.properties
 ```
 
 ## Reinicie o serviço
