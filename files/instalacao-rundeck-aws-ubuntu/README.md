@@ -89,13 +89,26 @@ dataSource.url = jdbc:mysql://endpoint-db/rundeck? autoReconnect=true&useSSL=fal
 dataSource.username = rundeckuser 
 dataSource.password = senhadb
 ```
+## Obtenha o ip público da instância EC2
+```bash
+curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4
+```
 
-# Reinicie o serviço
+## Insira o ip público obtido no comando anterior da sua instância no arquivo de configuração
+**Substitua seu-ip pelo ip obtido no comando anterior**
+```bash
+sudo sed 's/localhost/seu-ip/' /etc/rundeck/rundeck-config.properties
+```
+
+## Reinicie o serviço
 ```bash
 sudo service rundeckd restart
 ```
 
-# Habilitando o serviço do rundeck para inicializar junto com o sistema
+## Habilitando o serviço do rundeck para inicializar junto com o sistema
 ```bash
 sudo systemctl enable rundeckd
 ```
+
+## Após alguns minutos acesse seu rundeck no browser
+http://seu-ip-publico:4440
