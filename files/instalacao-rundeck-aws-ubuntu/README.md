@@ -55,7 +55,7 @@ CREATE USER 'rundeck'@'%' IDENTIFIED BY 'senharundeck';
 
 ## Atribua permissão ao usuário rundeckuser
 ```bash
-GRANT ALL PRIVILEGES ON *.* TO 'rundeck'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON rundeck.* TO 'rundeck'@'%';
 ```
 
 ## Limpa cache
