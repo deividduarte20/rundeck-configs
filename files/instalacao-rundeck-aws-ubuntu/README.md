@@ -1,7 +1,7 @@
 ## Requisitos mínimos:
 ```
 8GB RAM (4GB JVM Heap)
-2 CPUs per instance
+2 CPUs por instância
 Equivalente a m4.large na AWS EC2
 ```
 
