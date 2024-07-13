@@ -12,6 +12,11 @@ Equivalente a m4.large na AWS EC2
 sudo apt update && sudo apt-get install openjdk-11-jre-headless -y
 ```
 
+## Verifique se o java foi instalado
+```bash
+java --version
+```
+
 ## Instalação no repositório de pacotes
 ```bash
 curl https://raw.githubusercontent.com/rundeck/packaging/main/scripts/deb-setup.sh 2> /dev/null | sudo bash -s rundeck
