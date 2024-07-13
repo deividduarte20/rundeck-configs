@@ -24,7 +24,7 @@ curl https://raw.githubusercontent.com/rundeck/packaging/main/scripts/deb-setup.
 
 ## Instala o rundeck
 ```bash
-sudo apt-get update && sudo apt-get install rundeck
+sudo apt-get update && sudo apt-get install rundeck -y
 ```
 
 ## Inicializar rundeck
