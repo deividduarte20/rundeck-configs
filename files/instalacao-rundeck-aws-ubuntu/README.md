@@ -35,7 +35,7 @@ sudo service rundeckd start
 
 ## Instalar my-sql client
 ```bash
-sudo apt install mysql-client-core-8.0
+sudo apt install mysql-client-core-8.0 -y
 ```
 
 ## Acesse o banco de dados
