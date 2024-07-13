@@ -50,12 +50,12 @@ create database rundeck;
 
 ## Crie usuário rundeckuser no banco (Insira a senha desejada no campo 'rundeckpassword')
 ```bash
-CREATE USER 'rundeckuser'@'%' IDENTIFIED BY 'senharundeck';
+CREATE USER 'rundeck'@'%' IDENTIFIED BY 'senharundeck';
 ```
 
 ## Atribua permissão ao usuário rundeckuser
 ```bash
-GRANT ALL PRIVILEGES ON rundeck.* TO 'rundeckuser'@'%';
+GRANT ALL PRIVILEGES ON *.* TO 'rundeck'@'%' WITH GRANT OPTION;
 ```
 
 ## Limpa cache
