@@ -50,12 +50,12 @@ create database rundeck;
 
 ## Crie usuário rundeckuser no banco (Insira a senha desejada no campo 'rundeckpassword')
 ```bash
-CREATE USER 'rundeck'@'%' IDENTIFIED BY 'senharundeck';
+CREATE USER 'rundeckuser'@'%' IDENTIFIED BY 'senharundeck';
 ```
 
 ## Atribua permissão ao usuário rundeckuser
 ```bash
-GRANT ALL PRIVILEGES ON rundeck.* TO 'rundeck'@'%';
+GRANT ALL PRIVILEGES ON rundeck.* TO 'rundeckuser'@'%';
 ```
 
 ## Limpa cache
@@ -73,8 +73,7 @@ exit
 mysql -u rundeckuser -h endpoint-db -p
 ```
 
-## Configurando banco de dados no rundeck
-## Remover as linhas:
+## Remoção de linhas de configurção de banco:
 ```bash
 sudo sed -i '/dataSource.dbCreate/d' /etc/rundeck/rundeck-config.properties
 sudo sed -i '/dataSource.url/d' /etc/rundeck/rundeck-config.properties 
