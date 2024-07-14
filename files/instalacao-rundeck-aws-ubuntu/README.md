@@ -109,7 +109,7 @@ sudo systemctl enable rundeckd
 ## Após alguns minutos acesse seu rundeck no browser
 http://seu-ip-publico:4440
 
-## Para usar SSL acesse o arquivo /etc/rundeck/rundeck-config.properties
+## Para usar SSL acesse o arquivo /etc/rundeck/rundeck-config.properties e adicione no final do arquivo
 ```bash
 # Habilitar a requisição HTTPS vindo do LoadBalancer
 server.useForwardHeaders=true
