@@ -84,9 +84,9 @@ sudo sed -i '/dataSource.url/d' /etc/rundeck/rundeck-config.properties
 **Substitura senhadb pela senha do usuário rundeckuser do banco**
 ### DATABASE
 ```
-dataSource.driverClassName = org.mariadb.jdbc.Driver 
-dataSource.url = jdbc:mysql://endpoint-db/rundeck? autoReconnect=true&useSSL=false 
-dataSource.username = rundeckuser 
+dataSource.driverClassName = org.mariadb.jdbc.Driver
+dataSource.url = jdbc:mysql://endpoint-db/rundeck?autoReconnect=true&useSSL=false
+dataSource.username = rundeckuser
 dataSource.password = senhadb
 ```
 
