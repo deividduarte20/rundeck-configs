@@ -11,4 +11,5 @@ IP=${4}
 # Renomeia arquivo para nome e extensão de origem
 mv "$FILE" "$FILE_NAME"
 
+# Transfere arquivo através do protocolo ssh
 sshpass -p "$PASS" scp -v -o StrictHostKeyChecking=no "$FILE_NAME" "$USER@$IP:$DIR_DEST"
