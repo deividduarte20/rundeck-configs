@@ -111,7 +111,7 @@ context:
 RUNDECK_TOKEN=INSIRA-SEU-TOKEN /opt/rundeck_exporter/rundeck_exporter.py --host=0.0.0.0 --rundeck.url=http://localhost:4440 --rundeck.skip_ssl --rundeck.cpu.stats --rundeck.memory.stats --rundeck.projects.executions --rundeck.projects.executions.filter=5n --rundeck.requests.timeout=10
 ```
  
-### 9 - Crie um serviço no systemd para que o serviço possa ser inicializado junto com o systema:
+### 9 - Crie um serviço no systemd para que o serviço possa ser inicializado junto com o sistema:
 ```bash
 cat << EOF > /etc/systemd/system/rundeck_exporter.service
 [Unit]
