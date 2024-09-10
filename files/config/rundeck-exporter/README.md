@@ -7,7 +7,7 @@ cd /opt
 
 ### 2 - Clone o repositório:
 ```bash
-https://github.com/phsmith/rundeck_exporter.git
+git clone https://github.com/phsmith/rundeck_exporter.git
 ```
 
 ### 3 - Acesse o diretório:
