@@ -142,8 +142,8 @@ chmod 644 /etc/systemd/system/rundeck_exporter.service
 
 ### 11 - Recarregue o systemd e habilite o serviço: Para ativar o serviço para inicialização no boot, recarregue o systemd e habilite o novo serviço:
 ```bash
-sudo systemctl daemon-reload
-sudo systemctl enable rundeck_exporter.service
+systemctl daemon-reload
+systemctl enable rundeck_exporter.service
 ```
 
 ### 12 - Verifique o status do serviço rundeck_exporter.service
