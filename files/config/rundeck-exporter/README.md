@@ -21,7 +21,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 5 - Instale a lib do prometheues
+### 5 - Instale as lib
 ```bash
 pip install prometheus-client requests cachetools
 ```
