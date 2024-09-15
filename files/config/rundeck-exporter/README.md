@@ -180,3 +180,8 @@ Adicione a configuração abaixo no final do arquivo /etc/prometheus/prometheus.
     static_configs:
       - targets: ['192.168.100.150:9620']
 ```
+
+### 16 - Reinicie o serviço do prometheus:
+```bash
+systemctl restart prometheus
+```
