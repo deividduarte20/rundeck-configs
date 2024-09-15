@@ -170,11 +170,6 @@ localhost:9620/metrics
 Adicione a configuração abaixo no final do arquivo /etc/prometheus/prometheus.yml, altere o ip para o ip do servidor rundeck
 
 ```yaml
-global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
-
-scrape_configs:
   - job_name: 'rundeck'
     static_configs:
       - targets: ['192.168.100.150:9620']
