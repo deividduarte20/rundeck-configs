@@ -26,16 +26,24 @@ source .venv/bin/activate
 pip install prometheus-client requests cachetools
 ```
 
-## 6 - Gere um token no Rundeck
-Para que o `rundeck_exporter` possa coletar métricas, você precisa de um token de API:
+## 6 - Adicione um parâmetro no /etc/rundeck/rundeck-config.properties para não expirar token e Gere um token no Rundeck para que o `rundeck_exporter` possa coletar métricas:
+6.1 Edite o arquivo /etc/rundeck/rundeck-config.properties e insira o parâmetro no final do arquivo:
+```
+rundeck.api.tokens.duration.max: 0
+```
 
-1. Acesse o Rundeck com uma conta de administrador.
-2. No canto superior direito, clique no seu nome de usuário para abrir o menu suspenso.
-3. Selecione a opção **Profile** (Perfil).
-4. Dentro da página do perfil, você verá a seção **User API Tokens**.
-5. Clique no botão **Generate New Token** (Gerar Novo Token).
-6. Dê um nome ou descrição ao token e defina a sua validade (opcional).
-7. Clique em **Save** (Salvar).
+6.2 Reinicie o serviço do rundeck 
+```bash
+service rundeckd restart
+```
+
+6.3 Acesse o Rundeck com uma conta de administrador.
+6.4 No canto superior direito, clique no seu nome de usuário para abrir o menu suspenso.
+6.5 Selecione a opção **Profile** (Perfil).
+6.6 Dentro da página do perfil, você verá a seção **User API Tokens**.
+6.7 Clique no botão **Generate New Token** (Gerar Novo Token).
+6.8 Dê um nome ou descrição ao token e defina a sua validade (opcional).
+6.9 Clique em **Save** (Salvar).
 
 
 ### 7 - Criar uma acl para permitir o usuário nomeado exporter para obter métricas bem como execução de métricas para qualquer projeto:
