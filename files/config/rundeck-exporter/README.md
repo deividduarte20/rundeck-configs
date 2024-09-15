@@ -26,7 +26,7 @@ source .venv/bin/activate
 pip install prometheus-client requests cachetools
 ```
 
-## 6 - Adicione um parâmetro no /etc/rundeck/rundeck-config.properties para não expirar token e Gere um token no Rundeck para que o `rundeck_exporter` possa coletar métricas:
+### 6 - Adicione um parâmetro no /etc/rundeck/rundeck-config.properties para não expirar token e Gere um token no Rundeck para que o `rundeck_exporter` possa coletar métricas:
 6.1 Edite o arquivo /etc/rundeck/rundeck-config.properties e insira o parâmetro no final do arquivo:
 ```
 rundeck.api.tokens.duration.max: 0
