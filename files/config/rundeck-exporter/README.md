@@ -166,7 +166,13 @@ localhost:9620/metrics
 
 <img src="images/metrics.png" />
 
-### 14 - Configure o scrape no prometheus(máquina prometheus):
+### 14 - Instale o prometheus:
+```bash
+apt update
+apt install prometheus prometheus-node-exporter -y
+```
+
+### 15 - Configure o scrape no prometheus(máquina prometheus):
 Adicione a configuração abaixo no final do arquivo /etc/prometheus/prometheus.yml, altere o ip para o ip do servidor rundeck
 
 ```yaml
