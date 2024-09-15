@@ -1,4 +1,4 @@
-# Configuração do rundeck exporter (Execute os comandos como root)
+# Configuração do rundeck exporter (Execute os comandos como root na máquina do rundeck)
 
 ## 1 - Acesse o diretório /opt
 ```bash
@@ -114,7 +114,7 @@ context:
   project: .*
 ```
 
-### 8 - Execute o comando para testar o rundeck exporter, caso tenha mais projetos insira-os no campo filter separado por virgula:
+### 8 - Execute o comando para testar o rundeck exporter:
 ```bash
 RUNDECK_TOKEN=INSIRA-SEU-TOKEN /opt/rundeck_exporter/rundeck_exporter.py --host=0.0.0.0 --rundeck.url=http://localhost:4440 --rundeck.skip_ssl --rundeck.cpu.stats --rundeck.memory.stats --rundeck.projects.executions --rundeck.projects.executions.filter=5n --rundeck.requests.timeout=10
 ```
@@ -166,7 +166,9 @@ localhost:9620/metrics
 
 <img src="images/metrics.png" />
 
-### 14 - Configure o scrape no prometheus:
+### 14 - Configure o scrape no prometheus(máquina prometheus):
+Adicione a configuração abaixo no arquivo /etc/prometheus/prometheus.yml, altere o ip para o ip do servidor rundeck
+
 ```yaml
 global:
   scrape_interval: 15s
