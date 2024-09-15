@@ -157,3 +157,15 @@ localhost:9620/metrics
 ```
 
 <img src="images/metrics.png" />
+
+### 14 - Configure o scrape no prometheus:
+```yaml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'rundeck'
+    static_configs:
+      - targets: ['192.168.100.150:9620']
+```
