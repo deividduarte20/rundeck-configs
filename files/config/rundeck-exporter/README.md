@@ -148,10 +148,11 @@ EOF
 chmod 644 /etc/systemd/system/rundeck_exporter.service
 ```
 
-### 11 - Recarregue o systemd e habilite o serviço: Para ativar o serviço para inicialização no boot, recarregue o systemd e habilite o novo serviço:
+### 11 - Recarregue o systemd e habilite o serviço: Para ativar o serviço para inicialização no boot, recarregue o systemd e habilite o novo serviço e inicia o serviço:
 ```bash
 systemctl daemon-reload
 systemctl enable rundeck_exporter.service
+systemctl start rundeck_exporter.service
 ```
 
 ### 12 - Verifique o status do serviço rundeck_exporter.service
@@ -184,4 +185,26 @@ Adicione a configuração abaixo no final do arquivo /etc/prometheus/prometheus.
 ### 16 - Reinicie o serviço do prometheus:
 ```bash
 systemctl restart prometheus
+```
+
+### 17 - Instale o grafana
+17.1 - Instale os pré-requisitos
+```bash
+ apt-get install -y apt-transport-https software-properties-common wget
+```
+
+17.2 - Import a chave gpg
+```bash
+mkdir -p /etc/apt/keyrings/
+wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | tee /etc/apt/keyrings/grafana.gpg > /dev/null
+```
+
+17.3 - Adicione o repo estável
+```bash
+echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | tee -a /etc/apt/sources.list.d/grafana.list
+```
+
+17.4 - Atualize a lista de pacotes e instale o grafana
+```bash
+apt-get update && apt install grafana -y
 ```
