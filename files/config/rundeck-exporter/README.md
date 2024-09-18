@@ -208,3 +208,9 @@ echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stab
 ```bash
 apt-get update && apt install grafana -y
 ```
+
+17.5 - Inicie o serviço do grafana e habilite a inicialização junto do sistema
+```bash
+systemctl start grafana-server.service
+systemctl enable grafana-server.service
+```
