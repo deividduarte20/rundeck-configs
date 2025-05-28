@@ -12,7 +12,7 @@ activedirectory {
     com.dtolabs.rundeck.jetty.jaas.JettyCachingLdapLoginModule required
     debug="true"
     contextFactory="com.sun.jndi.ldap.LdapCtxFactory"
-    providerUrl="ldap://ip_ad:389"
+    providerUrl="ldap://192.168.100.151:389"
     bindDn="CN=svc-rundeck,CN=Users,DC=dtech,DC=local"
     bindPassword="insira_senha_usuario_ad"
     authenticationMethod="simple"
@@ -143,7 +143,7 @@ multiauth {
     com.dtolabs.rundeck.jetty.jaas.JettyCachingLdapLoginModule sufficient
     debug="true"
     contextFactory="com.sun.jndi.ldap.LdapCtxFactory"
-    providerUrl="ldap://ip_ad:389"
+    providerUrl="ldap://192.168.100.151:389"
     bindDn="CN=svc-rundeck,CN=Users,DC=dtech,DC=local"
     bindPassword="insira_senha_usuario_ad"
     authenticationMethod="simple"
