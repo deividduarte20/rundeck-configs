@@ -66,22 +66,58 @@ by:
 2. Adicione o seguinte conteúdo à ACL:
 
 ```yaml
-description: "Permissões operacionais para membros do grupo GGU_RUNDECK_OPS"
+---
+description: Acesso para a equipe ops do Active Directory a todos os projetos
 context:
-  project: '.*'
+  project: '.*'  # Aplica-se a todos os projetos
 for:
-  project:
-    - allow: [read]
-  node:
-    - allow: [read, run]
-  job:
-    - allow: [read, run]
-  adhoc:
-    - allow: [run]
-  event:
-    - allow: [read]
   resource:
-    - allow: [read]
+    - equals:
+        kind: job
+      allow: [create,read,update,delete] # Permite criar, ler, atualizar e excluir jobs
+    - equals:
+        kind: node
+      allow: [read,create,update,refresh] # Permite ler, criar, atualizar e atualizar fontes de nós
+    - equals:
+        kind: event
+      allow: [read,create] # Permite ler e criar eventos
+  adhoc:
+    - allow: [read,run,runAs,kill,killAs] # Permite ler, executar e matar jobs ad hoc
+  job:
+    - allow: [create,read,update,delete,run,runAs,kill,killAs] # Permite todas as ações sobre os jobs
+  node:
+    - allow: [read,run] # Permite ler e executar nos nós
+by:
+  group: GGU_RUNDECK_OPS
+
+---
+description: Acesso para a equipe ops do Active Directory a todos os projetos
+context:
+  application: 'rundeck'
+for:
+  resource:
+    - equals:
+        kind: project
+      allow: [create] # Permite criar projetos
+    - equals:
+        kind: system
+      allow: [read,enable_executions,disable_executions,admin] # Permite ler informações do sistema e habilitar/desabilitar execuções
+    - equals:
+        kind: system_acl
+      allow: [read] # Permite ler as ACLs do sistema
+    - equals:
+        kind: user
+      allow: [admin] # Permite modificar o perfil do usuário
+  project:
+    - match:
+        name: '.*'
+      allow: [read,import,export,configure,delete,promote,admin] # Permite acesso completo aos projetos
+  project_acl:
+    - match:
+        name: '.*'
+      allow: [read,create,update,delete,admin] # Permite modificar as ACLs dos projetos
+  storage:
+    - allow: [read,create,update,delete] # Permite ler e modificar o conteúdo do armazenamento de chaves
 by:
   group: GGU_RUNDECK_OPS
 ```
