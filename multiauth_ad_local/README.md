@@ -35,28 +35,35 @@ OU=Users
 3. Adicione o seguinte conteúdo à ACL:
 
 ```yaml
-description: "Permissões administrativas para membros do grupo GGU_RUNDECK_ADMIN"
+description: Admin, all access.
 context:
-  project: '.*'  # Aplica a todos os projetos
+  project: '.*' # all projects
 for:
-  project:
-    - match:
-        name: '.*'
-      allow: [read, create, update, delete, import, export, configure]
-  node:
-    - match:
-        name: '.*'
-      allow: [read, create, update, delete, run]
-  job:
-    - match:
-        name: '.*'
-      allow: [read, run, create, update, delete, kill]
-  adhoc:
-    - allow: [read, run]
-  event:
-    - allow: [read]
   resource:
-    - allow: [read]
+    - allow: '*' # allow read/create all kinds
+  adhoc:
+    - allow: '*' # allow read/running/killing adhoc jobs
+  job: 
+    - allow: '*' # allow read/write/delete/run/kill of all jobs
+  node:
+    - allow: '*' # allow read/run for all nodes
+by:
+  group: GGU_RUNDECK_ADMIN
+
+---
+
+description: Admin, all access.
+context:
+  application: 'rundeck'
+for:
+  resource:
+    - allow: '*' # allow create of projects
+  project:
+    - allow: '*' # allow view/admin of all projects
+  project_acl:
+    - allow: '*' # allow admin of all project-level ACL policies
+  storage:
+    - allow: '*' # allow read/create/update/delete for all /keys/* storage content
 by:
   group: GGU_RUNDECK_ADMIN
 ```
