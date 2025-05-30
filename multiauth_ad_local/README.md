@@ -12,7 +12,7 @@ Este guia descreve como configurar a integração do Rundeck com o Active Direct
 
 ## 1. Configuração no Active Directory
 
-### 1.1. Criar usuário na Unidade Organizacionai (OUs) Users
+### 1.1. Criar usuário na Unidade Organizacionai (OU) Users
 1. No Active Directory, crie um usuário chamado `svc-rundeck`.
 2. Crie dois grupos:
    - `GGU_RUNDECK_ADMIN`
