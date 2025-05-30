@@ -15,23 +15,23 @@ Este guia descreve como configurar a integração do Rundeck com o Active Direct
 ### 1.1. Criar usuário na Unidade Organizacionai (OU) Users
 1. No Active Directory, crie um usuário chamado `svc-rundeck`.
 2. Crie dois grupos:
-   - `GGU_RUNDECK_ADMIN`
-   - `GGU_RUNDECK_OPS`
+   - `RUNDECK_ADMIN`
+   - `RUNDECK_OPS`
 
 **Estrutura resultante:**
 ```
 OU=Users
-   ├── CN=GGU_RUNDECK_ADMIN
-   └── CN=GGU_RUNDECK_OPS
+   ├── CN=RUNDECK_ADMIN
+   └── CN=RUNDECK_OPS
 ```
 
 ---
 
 ## 2. Configuração de ACLs no Rundeck
 
-### 2.1. Criar ACL para o grupo GGU_RUNDECK_ADMIN
+### 2.1. Criar ACL para o grupo RUNDECK_ADMIN
 1. Acesse a interface web do Rundeck.
-2. Crie uma nova ACL chamada `GGU_RUNDECK_ADMIN`.
+2. Crie uma nova ACL chamada `RUNDECK_ADMIN`.
 3. Adicione o seguinte conteúdo à ACL:
 
 ```yaml
@@ -48,7 +48,7 @@ for:
   node:
     - allow: '*' # allow read/run for all nodes
 by:
-  group: GGU_RUNDECK_ADMIN
+  group: RUNDECK_ADMIN
 
 ---
 
@@ -65,11 +65,11 @@ for:
   storage:
     - allow: '*' # allow read/create/update/delete for all /keys/* storage content
 by:
-  group: GGU_RUNDECK_ADMIN
+  group: RUNDECK_ADMIN
 ```
 
-### 2.2. Criar ACL para o grupo GGU_RUNDECK_OPS
-1. Crie uma nova ACL chamada `GGU_RUNDECK_OPS`.
+### 2.2. Criar ACL para o grupo RUNDECK_OPS
+1. Crie uma nova ACL chamada `RUNDECK_OPS`.
 2. Adicione o seguinte conteúdo à ACL:
 
 ```yaml
@@ -95,7 +95,7 @@ for:
   node:
     - allow: [read,run] # Permite ler e executar nos nós
 by:
-  group: GGU_RUNDECK_OPS
+  group: RUNDECK_OPS
 
 ---
 description: Acesso para a equipe ops do Active Directory a todos os projetos
@@ -126,7 +126,7 @@ for:
   storage:
     - allow: [read,create,update,delete] # Permite ler e modificar o conteúdo do armazenamento de chaves
 by:
-  group: GGU_RUNDECK_OPS
+  group: RUNDECK_OPS
 ```
 
 ### 2.3. Reiniciar o serviço Rundeck
@@ -276,5 +276,5 @@ tail -f /var/log/rundeck/service.log
 
 ## Notas Adicionais
 - **Segurança**: Certifique-se de que a senha do `bindDn` (`Senha@2025`) seja armazenada de forma segura e alterada conforme as políticas de segurança da sua organização.
-- **Testes**: Após cada reinicialização do serviço, teste o acesso com contas do Active Directory pertencentes aos grupos `GGU_RUNDECK_ADMIN` e `GGU_RUNDECK_OPS` para validar as permissões.
+- **Testes**: Após cada reinicialização do serviço, teste o acesso com contas do Active Directory pertencentes aos grupos `RUNDECK_ADMIN` e `RUNDECK_OPS` para validar as permissões.
 - **Logs**: Sempre verifique o log em `/var/log/rundeck/service.log` para diagnosticar possíveis erros de autenticação ou configuração.
