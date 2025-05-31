@@ -208,6 +208,10 @@ sudo systemctl restart rundeckd
 
 ```text
 multiauth {
+  org.eclipse.jetty.jaas.spi.PropertyFileLoginModule optional
+    debug="true"
+    file="file:/etc/rundeck/realm.properties";
+
   com.dtolabs.rundeck.jetty.jaas.JettyCachingLdapLoginModule sufficient
     debug="true"
     contextFactory="com.sun.jndi.ldap.LdapCtxFactory"
@@ -230,10 +234,6 @@ multiauth {
     userLastNameAttribute="sn"
     userFirstNameAttribute="givenName"
     userEmailAttribute="mail";
-
-  org.eclipse.jetty.jaas.spi.PropertyFileLoginModule required
-    debug="true"
-    file="/etc/rundeck/realm.properties";
 };
 ```
 
