@@ -209,31 +209,31 @@ sudo systemctl restart rundeckd
 ```text
 multiauth {
   com.dtolabs.rundeck.jetty.jaas.JettyCachingLdapLoginModule sufficient
-  debug="true"
-  contextFactory="com.sun.jndi.ldap.LdapCtxFactory"
-  providerUrl="ldap://192.168.100.151:389"
-  bindDn="CN=svc-rundeck,CN=Users,DC=dtech,DC=local"
-  bindPassword="Senha@2025"
-  authenticationMethod="simple"
-  forceBindingLogin="true"
-  userBaseDn="CN=Users,DC=dtech,DC=local"
-  userRdnAttribute="sAMAccountName"
-  userIdAttribute="sAMAccountName"
-  userPasswordAttribute="unicodePwd"
-  userObjectClass="user"
-  roleBaseDn="DC=dtech,DC=local"
-  roleNameAttribute="cn"
-  roleMemberAttribute="member"
-  roleObjectClass="group"
-  cacheDurationMillis="300000"
-  reportStatistics="true"
-  userLastNameAttribute="sn"
-  userFirstNameAttribute="givenName"
-  userEmailAttribute="mail";
+    debug="true"
+    contextFactory="com.sun.jndi.ldap.LdapCtxFactory"
+    providerUrl="ldap://192.168.100.151:389"
+    bindDn="svc-rundeck@dtech.local"
+    bindPassword="Senha@2025"
+    authenticationMethod="simple"
+    forceBindingLogin="true"
+    userBaseDn="CN=Users,DC=dtech,DC=local"
+    userRdnAttribute="sAMAccountName"
+    userIdAttribute="sAMAccountName"
+    userPasswordAttribute="unicodePwd"
+    userObjectClass="user"
+    roleBaseDn="CN=Users,DC=dtech,DC=local"
+    roleNameAttribute="cn"
+    roleMemberAttribute="member"
+    roleObjectClass="group"
+    cacheDurationMillis="300000"
+    reportStatistics="true"
+    userLastNameAttribute="sn"
+    userFirstNameAttribute="givenName"
+    userEmailAttribute="mail";
 
   org.eclipse.jetty.jaas.spi.PropertyFileLoginModule required
-  debug="true"
-  file="/etc/rundeck/realm.properties";
+    debug="true"
+    file="/etc/rundeck/realm.properties";
 };
 ```
 
