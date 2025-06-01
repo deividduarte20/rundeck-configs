@@ -275,6 +275,5 @@ tail -f /var/log/rundeck/service.log
 ---
 
 ## Notas Adicionais
-- **Segurança**: Certifique-se de que a senha do `bindDn` (`Senha@2025`) seja armazenada de forma segura e alterada conforme as políticas de segurança da sua organização.
 - **Testes**: Após cada reinicialização do serviço, teste o acesso com contas do Active Directory pertencentes aos grupos `RUNDECK_ADMIN` e `RUNDECK_OPS` para validar as permissões.
 - **Logs**: Sempre verifique o log em `/var/log/rundeck/service.log` para diagnosticar possíveis erros de autenticação ou configuração.
