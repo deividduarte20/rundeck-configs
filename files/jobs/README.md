@@ -26,3 +26,8 @@ Executa o script `copy.sh` passando os parâmetros definidos:
 ```bash
 cd /var/rundeck/ops/; ./copy.sh ${option.dir_destino} ${file.file} ${file.file.fileName} ${option.ip_vm_dest} ${option.usuario} ${option.senha}
 ```
+
+🗂️ Estrutura Relevante
+- Local dos scripts no Rundeck: /var/rundeck/ops/
+- Script de cópia utilizado: copy.sh
+- Protocolos utilizados: ssh, scp
