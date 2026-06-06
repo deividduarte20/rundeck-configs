@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Rundeck + Windows WinRM</title>
+<style>
+body {font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; color:#333;}
+h1,h2,h3 {color:#1f4e79;}
+code, pre {background:#f4f4f4; padding:4px; border-radius:4px;}
+pre {padding:12px; overflow:auto;}
+.section {margin-bottom:30px;}
+.arch {background:#fafafa; border:1px solid #ddd; padding:20px; white-space:pre;}
+.note {background:#eef7ff; border-left:5px solid #1f4e79; padding:10px;}
+table {border-collapse: collapse; width:100%;}
+th, td {border:1px solid #ccc; padding:8px;}
+th {background:#f0f0f0;}
+</style>
+</head>
+<body>
+
+<h1>Laboratório Rundeck + Windows via WinRM</h1>
+
+<div class="note">
+Documento completo para integração de um servidor Rundeck com uma máquina Windows utilizando WinRM.
+</div>
+
+<h2>Arquitetura do Laboratório</h2>
+<div class="arch">
+┌─────────────────────────────┐
+│         Rundeck             │
+│                             │
+│ Job: Get-Date               │
+│ Job: Get-Service            │
+│ Job: Get-Process            │
+└──────────────┬──────────────┘
+               │
+               │ WinRM HTTP
+               │ TCP/5985
+               ▼
+┌─────────────────────────────┐
+│        Windows VM           │
+│                             │
+│ WinRM Enabled               │
+│ Basic Auth Enabled          │
+│ AllowUnencrypted = True     │
+│ User: deivid                │
+└─────────────────────────────┘
+</div>
+
+<h2>1. Preparando o Windows</h2>
+
+<h3>Verificar perfil da rede</h3>
+
+<pre>
+Get-NetConnectionProfile
+</pre>
+
+<p>
+O perfil da rede deve estar como <b>Private</b>.
+Caso esteja como <b>Public</b>, altere:
+</p>
+
+<pre>
+Set-NetConnectionProfile `
+  -Name "Rede" `
+  -NetworkCategory Private
+</pre>
+
+<h3>Verificar serviço WinRM</h3>
+
+<pre>
+Get-Service WinRM
+</pre>
+
+<h3>Iniciar serviço</h3>
+
+<pre>
+Start-Service WinRM
+Set-Service WinRM -StartupType Automatic
+</pre>
+
+<h3>Habilitar PowerShell Remoting</h3>
+
+<pre>
+Enable-PSRemoting -Force
+</pre>
+
+<h3>Habilitar autenticação Basic</h3>
+
+<pre>
+Set-Item WSMan:\localhost\Service\Auth\Basic -Value $true
+</pre>
+
+<h3>Permitir tráfego sem criptografia (HTTP 5985)</h3>
+
+<pre>
+Set-Item WSMan:\localhost\Service\AllowUnencrypted -Value $true
+</pre>
+
+<h3>Reiniciar serviço WinRM</h3>
+
+<pre>
+Restart-Service WinRM
+</pre>
+
+<h3>Verificar configuração</h3>
+
+<pre>
+winrm get winrm/config/service
+</pre>
+
+<p>Resultado esperado:</p>
+
+<pre>
+Basic = true
+AllowUnencrypted = true
+</pre>
+
+<h3>Verificar Listener</h3>
+
+<pre>
+winrm enumerate winrm/config/listener
+</pre>
+
+<h3>Verificar porta 5985</h3>
+
+<pre>
+netstat -ano | findstr 5985
+</pre>
+
+<h3>Liberar Firewall</h3>
+
+<pre>
+Enable-NetFirewallRule -DisplayGroup "Windows Remote Management"
+</pre>
+
+<h2>2. Testando WinRM a partir do Linux</h2>
+
+<h3>Validar conectividade TCP</h3>
+
+<pre>
+nc -vz 192.168.100.151 5985
+</pre>
+
+Resultado esperado:
+
+<pre>
+Connection to 192.168.100.151 5985 port [tcp/*] succeeded!
+</pre>
+
+<pre>
+sudo apt update
+sudo apt install python3-pip python3.12-venv -y
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install pywinrm
+</pre>
+
+<h3>Teste Python</h3>
+
+<pre>
+import winrm
+
+s = winrm.Session(
+    'http://192.168.100.151:5985/wsman',
+    auth=('deivid', 'teste')
+)
+
+r = s.run_cmd('hostname')
+
+print("STATUS:", r.status_code)
+print("STDOUT:", r.std_out)
+print("STDERR:", r.std_err)
+</pre>
+
+<h2>3. Criando o segredo no Key Storage</h2>
+
+<p>Criar a chave:</p>
+
+<pre>
+keys/project/windows-lab/password_user_win
+</pre>
+
+<p>Senha:</p>
+
+<pre>teste</pre>
+
+<h2>4. Configuração do Node</h2>
+
+<pre>
+windowsvm:
+  nodename: windowsvm
+  hostname: 192.168.100.151
+  osFamily: windows
+  username: deivid
+  authType: basic
+  winrmPort: '5985'
+  winrmTransport: plaintext
+  winrm-password-storage-path: keys/projects/windows-lab/password_user_win
+  tags: windows
+</pre>
+
+<h2>5. Configuração do Projeto Rundeck</h2>
+
+<ul>
+<li>Node Executor: WinRM</li>
+<li>Python Interpreter: python3 ou /usr/bin/python3</li>
+<li>Refresh Nodes após salvar</li>
+</ul>
+
+<h2>6. Job de Teste</h2>
+
+<pre>Get-Date</pre>
+
+<h2>Checklist Final</h2>
+<ul>
+<li>Rede Windows configurada como Private</li>
+<li>WinRM iniciado</li>
+<li>Basic Authentication habilitada</li>
+<li>AllowUnencrypted habilitado</li>
+<li>Firewall liberando TCP 5985</li>
+<li>Listener WinRM ativo</li>
+<li>Teste pywinrm funcionando</li>
+<li>Hostname retornando "win-lab"</li>
+<li>Senha cadastrada no Key Storage</li>
+<li>Node criado no Rundeck</li>
+<li>Node Executor = WinRM Python</li>
+<li>File Copier = WinRM Python</li>
+<li>Python Interpreter = python3</li>
+<li>Job Get-Date executando com sucesso</li>
+</ul>
+
+</body>
+</html>
